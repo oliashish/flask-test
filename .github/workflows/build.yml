@@ -26,26 +26,26 @@ jobs:
 
         - name: Creting a Dockerfile
           run: | 
-             echo
-                "
-                FROM python3
-                WORKDIR /app
-                COPY requirements.txt requirements.txt
-                RUN pip3 install -r requirements.txt
-                COPY . .
-                RUN cd src/
-                CMD ["python3", "-m", "app.py"]
-                " > Dockerfile
+            echo
+              "
+              FROM python3
+              WORKDIR /app
+              COPY requirements.txt requirements.txt
+              RUN pip3 install -r requirements.txt
+              COPY . .
+              RUN cd src/
+              CMD ["python3", "-m", "app.py"]
+              " > Dockerfile
 
         - name: Docker login
           uses: docker/login-action@v1 
           with:
             registry: registry.patr.cloud
-            username: ashish-oli
+            username: ${{username}}
             password: ${{ secrets.REGISTRY_PASSWORD }}
 
         - name: Build image from Dockerfile and push to patr-registry
           run: |
-            docker build . -t ashish-oli/deployment
-            docker tag {username}/deployment registry.patr.cloud/{workspace_name}/{docker_repo_name}:{tag} 
-            docker push registry.patr.cloud/{workspace_name}/{docker_repo_name}:{tag}
+            docker build . -t ${{secrets.username}}/deployment
+            docker tag ${{secrets.username}}/deployment registry.patr.cloud/personal-workspace-1424404d9fff474bba7f23825681f6a8/flask:latest 
+            docker push registry.patr.cloud/personal-workspace-1424404d9fff474bba7f23825681f6a8/flask:latest
