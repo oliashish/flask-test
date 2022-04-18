@@ -27,7 +27,7 @@ jobs:
         - name: Creting a Dockerfile
           run: | 
             echo "
-              FROM python3
+              FROM python:latest
               WORKDIR /app
               COPY . .
               RUN pip3 install -r requirements.txt
