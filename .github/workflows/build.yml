@@ -33,6 +33,7 @@ jobs:
               COPY requirements.txt requirements.txt
               RUN pip3 install -r requirements.txt
               COPY . .
+              RUN ls -a
               CMD ["python3", "app.py"]
               " > Dockerfile
 
